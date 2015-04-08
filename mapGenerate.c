@@ -16,6 +16,7 @@ void generateMap(int* Width, int* Height);
 int randint(int n);
 void printHorizontalBound(int roomWidth);
 
+/*
 int main () {
    int i=0,j=0;
    char mapArray[15][15];
@@ -30,6 +31,8 @@ int main () {
    printMap(mapArray,roomWidth,roomHeight);
    return EXIT_SUCCESS;
 }
+*/
+//This main function is for testing purposes only.
 
 void printMap(char mapArray[][MAP_SIZE], int roomWidth, int roomHeight) {
    int widthcount = 0;
