@@ -10,24 +10,28 @@
 #define LEFT 2
 
 //revision required later so that attempted movement into a monster entity results in attack function being called
-int move(char* entityArray[][15], char* mapArray[][15], int direction, int entityx, int entityy) { 
+int move(char* entityArray[][15], char* mapArray[][15], int direction, int entityx, int entityy, int entityIndex) { 
 //entityx is the x value in the array of the entity, similarly for entityy
    int valid;
    valid = obstructionCheck(entityArray[][15], mapArray[][15], direction, entityx, entityy);
    if (valid == TRUE) {
       assert(direction == (UP || DOWN || RIGHT || LEFT));
       if (direction == UP) {
+         entityInfo[entityIndex,ENTITY_Y]++;
          entityArray[entityx][entityy+1] = entityArray[entityx][entityy];
-         entityArray[entityx][entityy] = '0';
-      } else if (direction == DOWN) {
+         entityArray[entityx][entityy] = NO_ENTITY;
+      } else if (direction == DOWN) { 
+         entityInfo[entityIndex,ENTITY_Y]--;
          entityArray[entityx][entityy-1] = entityArray[entityx][entityy];
-         entityArray[entityx][entityy] = '0';
+         entityArray[entityx][entityy] = NO_ENTITY;
       } else if (direction == RIGHT) {
+         entityInfo[entityIndex,ENTITY_X]++;
          entityArray[entityx+1][entityy] = entityArray[entityx][entityy];
-         entityArray[entityx][entityy] = '0';
+         entityArray[entityx][entityy] = NO_ENTITY;
       } else if (direction == LEFT) {
+         entityInfo[entityIndex,ENTITY_X]--;
          entityArray[entity-1][entityy] = entityArray[entityx][entityy];
-         entityArray[entityx][entityy] = '0';
+         entityArray[entityx][entityy] = NO_ENTITY;
       }
       return EXIT_SUCCESS;
    } else {
