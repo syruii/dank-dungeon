@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <time.h>
 
+#include "rand.c"
+
 #define VERTICAL_WALL "|"
 #define HORIZONTAL_WALL "-"
 #define MAP_SIZE 15
@@ -53,7 +55,7 @@ void printMap(char mapArray[][MAP_SIZE], int roomWidth, int roomHeight) {
    }
 
    printHorizontalBound(roomWidth);
-   printf("\n")
+   printf("\n");
 
    return;
 }
@@ -67,20 +69,6 @@ void generateMap(int* width, int* height) { //generates random dimensions of roo
 }
 
 
-int randint(int n) { //does this random function even work - it does
-   if ((n-1) == RAND_MAX) {
-      return rand();
-   } else {
-      long end = RAND_MAX / n;
-      assert (end > 0L);
-      end *=n;
-      int r;
-      while ((r = rand()) >= end);
-
-      return r % n;
-   }
-}
-
 void printHorizontalBound(int roomWidth) {
    int widthcount = 0;
    while (widthcount < roomWidth) {
@@ -88,4 +76,4 @@ void printHorizontalBound(int roomWidth) {
       widthcount++;
    }
    return;
-}/
+}
