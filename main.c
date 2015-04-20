@@ -7,30 +7,38 @@
 #define TRUE 1
 #define FALSE 0
 
-// #include <subroutines.c>
-#include <mapGenerate.c>
-#include <moveEntity.c>
-
 // standard libraries
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 //definitions for MAXARRAYSIZE
 #define MAP_SIZE 15
 #define MAX_ENTITIES 8
 #define MAX_ENTITY_PROPERTIES 5
+#define MAX_DESCRIPT_SIZE 25
 
-//definitions for entityInfo array
-#define ENTITY_SYMBOL 0
-#define ENTITY_X 1
-#define ENTITY_Y 2
-#define ENTITY_LVL 3
-#define ENTITY_HP 4
+//definitions for entity/Info struct
+typedef struct _entity {
+   char entitySymbol;
+   char entityDescription[MAX_DESCRIPT_SIZE];
+   int entityHP;
+   int entityLVL;
+   int entityx; //yes i could use unsigned char but whatever
+   int entityy;
+} entity;
+
+// function headers
+#include "randint.c"
+#include "mapGenerate.c"
+#include "entityPopulate.c"
 
 int main (int argc, char* argv[]) {
+   entity entityInfo[7];
    //printTitle()
-   int playerName;
+   //int playerName; 
+   int playerLevel=1;
    //read in playername
    int roomWidth;
    int roomHeight;
@@ -46,21 +54,24 @@ int main (int argc, char* argv[]) {
    char entityArray[MAP_SIZE][MAP_SIZE];
    for (i = 0; i < MAP_SIZE; i++) {            //populates entityArray with no entities on the map
       for (j = 0; j < MAP_SIZE; j++) {
-         mapArray[i][j] = NO_ENTITY;
+         entityArray[i][j] = NO_ENTITY;
       }
    }
 
-   char entityInfo[MAX_ENTITY_PROPERTIES][MAX_ENTITIES];  
-   for (i = 0; i < MAX_ENTITY_PROPERTIES; i++) {            //populates entityInfo with no entities
-      for (j = 0; j < MAX_ENTITIES; j++) {
-         mapArray[i][j] = NO_ENTITY;
-      }
-   }
+/* ~~~~~
+  test for entityPopulate
+   ~~~~~ */
+   generateMap (&roomWidth, &roomHeight);
+   printf("Height of room should be %d, Width should be %d\n", roomHeight, roomWidth);
+   entityPopulate (entityArray, entityInfo, mapArray, playerLevel, roomWidth, roomHeight);
+   printMap (mapArray, entityArray, roomWidth, roomHeight);
    // ENTITY SYMBOL | ENTITY X | ENTITY Y | ENTITY LVL | ENTITY HP
-   // possibly other stuff, row 0 will always be player character
+   // possibly other stuff, row 0 will always be player unsigned character
    // consider it a database with the primary key being entity symbol
+
+/*
    
-   char command [10]; //string store for the command, set to maximum character of 9 now
+   unsigned char command [10]; //string store for the command, set to maximum character of 9 now
    
    int levelComplete = FALSE;
    int deathFlag = FALSE; //you aren't dead when the game begins
@@ -93,4 +104,6 @@ int main (int argc, char* argv[]) {
    }
 
 
+*/
+   return EXIT_SUCCESS;
 }
