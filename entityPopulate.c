@@ -60,7 +60,7 @@ void generateMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[],
 void placeMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight, int monNumber) {
    int posx,posy;
    generatePosition(roomWidth, roomHeight, &posx, &posy);
-   while (mapArray[posx][posy]!= EMPTY_SPACE && entityArray[posx][posy] != NO_ENTITY) {
+   while ((mapArray[posx][posy]!= EMPTY_SPACE) || (entityArray[posx][posy] != NO_ENTITY)) {
       generatePosition(roomWidth, roomHeight, &posx, &posy);
    }
    char symbolChoose = randint(4); //char to save space
@@ -87,7 +87,6 @@ void placeMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], ch
 void generatePosition (int roomWidth, int roomHeight, int* posx, int* posy) {
    *posx = randint(roomWidth); //0th row/column is a thing
    *posy = randint(roomHeight);
-   printf("%d,%d\n", *posx,*posy);
    return;
 }
  

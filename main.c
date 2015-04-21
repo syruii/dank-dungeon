@@ -7,6 +7,9 @@
 #define TRUE 1
 #define FALSE 0
 
+#define SAME 0
+//stupid strcmp
+
 // standard libraries
 #include <stdlib.h>
 #include <stdio.h>
@@ -61,6 +64,7 @@ int main (int argc, char* argv[]) {
 /* ~~~~~
   test for entityPopulate
    ~~~~~ */
+/* TEST WAS PASSED 
    generateMap (&roomWidth, &roomHeight);
    printf("Height of room should be %d, Width should be %d\n", roomHeight, roomWidth);
    entityPopulate (entityArray, entityInfo, mapArray, playerLevel, roomWidth, roomHeight);
@@ -69,41 +73,48 @@ int main (int argc, char* argv[]) {
    // possibly other stuff, row 0 will always be player unsigned character
    // consider it a database with the primary key being entity symbol
 
-/*
+*/
    
-   unsigned char command [10]; //string store for the command, set to maximum character of 9 now
+   char command [10]; //string store for the command, set to maximum character of 9 now
    
    int levelComplete = FALSE;
    int deathFlag = FALSE; //you aren't dead when the game begins
    
    while (deathFlag == FALSE) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
-      //seed level and entityInfo with some monster entities and player and throw them in another 2 dimensional array entityInfo
-      printMap(mapArray, roomWidth, roomHeight);
-      //printStatus() should be included into printMap
-      
+      entityPopulate (entityArray, entityInfo, mapArray, playerLevel, roomWidth, roomHeight);
+      //printStatus() should be included into printMap      
       while (levelComplete != TRUE) {
+         printMap(mapArray, entityArray, roomWidth, roomHeight);
          // get command (look at wiki for commands) from keyboard
          // stacked else ifs for all commands that lead to their own function
          // else print "Invalid command"
          //e.g
          printf("What will you do?\n"); //awaiting response
          scanf("%9s",command);
-         if (command == ("up" || "k")) {
+         printf("\n");
+         if (strcmp(command,"up") == SAME) {
+            printf("You move up.\n");
             //move(entityArray[][15], mapArray[][15], UP, entityInfo[0,ENTITY_X], entityInfo[0,ENTITY_Y]);
          //} else if { etc.
          //inventory system will print out another screen and have a similar infinite loop
          //right now I think that at the end of the resolutions of all the legal commands, then the map and status screen
          //should be reprinted 
+         } else if (strcmp(command, "down") == SAME) {
+            printf("You move down.\n");
+         } else if(strcmp(command, "right") == SAME) {
+            printf("You move right.\n");
+         } else if(strcmp(command, "left") == SAME) {
+            printf("You move left.\n");
          } else {
             printf("Invalid command.\n");
          }
       }
+   }
       //death checks will occur during monster or player movements
       //monster movements will be a separate function which will walk through the entityInfo array          
-   }
 
 
-*/
+
    return EXIT_SUCCESS;
 }
