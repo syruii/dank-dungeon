@@ -2,9 +2,6 @@
    Program written on 8/04/15
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
 #include <time.h>
 
 #define VERTICAL_WALL "|"
