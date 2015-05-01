@@ -41,7 +41,7 @@ void generateMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[],
    entityInfo[monNumber].entityLVL = randint(3) + playerLevel; //random level, game will be hard
    entityInfo[monNumber].entityHP = randint(10) + 2*entityInfo[monNumber].entityLVL + BASE_HP; //random HP @ LVL1 10-20 HP 
    int descriptNumber = randint(5);
-   if (descriptNumber == 0) {
+   if (descriptNumber == 0) {//randonmly generate a descrption (all monsters are created equal)
       strncpy(entityInfo[monNumber].entityDescription, "a loud bat", MAX_DESCRIPT_SIZE);
    } else if (descriptNumber == 1) {
       strncpy(entityInfo[monNumber].entityDescription, "a hungry skeleton", MAX_DESCRIPT_SIZE);
