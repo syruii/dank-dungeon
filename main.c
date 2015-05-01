@@ -59,6 +59,7 @@ typedef struct _game {
 #include "entityCheck.h"
 #include "direction.h"
 #include "attack.h"
+#include "moveEntity.h"
 
 int main (int argc, char* argv[]) {
    game gameInfo;
