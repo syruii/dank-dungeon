@@ -12,8 +12,8 @@ void printMap(char mapArray[MAP_SIZE][MAP_SIZE], char entityArray[MAP_SIZE][MAP_
 void generateMap(int* Width, int* Height);
 void printHorizontalBound(int roomWidth);
 
-
-/*int main () {
+/*
+int main () {
    int i=0,j=0;
    char mapArray[15][15];
    for (i = 0; i < MAP_SIZE; i++) {            //populates array with empty tiles
@@ -24,7 +24,7 @@ void printHorizontalBound(int roomWidth);
    int roomWidth;
    int roomHeight;
    generateMap(&roomWidth, &roomHeight);
-   printMap(mapArray,entityArray,roomWidth,roomHeight);
+   printMap(mapArray,roomWidth,roomHeight);
    return EXIT_SUCCESS;
 }
 */
@@ -62,7 +62,7 @@ void generateMap(int* width, int* height) { //generates random dimensions of roo
    srand(time(NULL));
    *width = randint(12) + 3;
    *height = randint(12) +3;
-   printf("%d, %d", *width, *height);
+//   printf("%d, %d", *width, *height);
    return;
 }
 

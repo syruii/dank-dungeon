@@ -64,12 +64,12 @@ int main (int argc, char* argv[]) {
    game gameInfo;
    entity entityInfo[MAX_ENTITIES];
    //printTitle()
-   //int playerName; 
+   //int playerName;
    //read in playername
    int roomWidth;
    int roomHeight;
    int direction = 0; //not actually a direction
-   
+
    int i=0,j=0;
    char mapArray[MAP_SIZE][MAP_SIZE];
    for (i = 0; i < MAP_SIZE; i++) {            //populates mapArray with empty tiles
@@ -77,7 +77,7 @@ int main (int argc, char* argv[]) {
          mapArray[i][j] = EMPTY_SPACE;
       }
    }
-   
+
    char entityArray[MAP_SIZE][MAP_SIZE];
    for (i = 0; i < MAP_SIZE; i++) {            //populates entityArray with no entities on the map
       for (j = 0; j < MAP_SIZE; j++) {
@@ -88,7 +88,7 @@ int main (int argc, char* argv[]) {
 /* ~~~~~
   test for entityPopulate
    ~~~~~ */
-/* TEST WAS PASSED 
+/* TEST WAS PASSED
    generateMap (&roomWidth, &roomHeight);
    printf("Height of room should be %d, Width should be %d\n", roomHeight, roomWidth);
    entityPopulate (entityArray, entityInfo, mapArray, playerLevel, roomWidth, roomHeight);
@@ -98,7 +98,7 @@ int main (int argc, char* argv[]) {
    // consider it a database with the primary key being entity symbol
 
 */
-   int turnPassed = FALSE; 
+   int turnPassed = FALSE;
    char command [10]; //string store for the command, set to maximum character of 9 now, can hold any command since no need to remember
    int levelComplete = FALSE;
    //initialise player, lvl, damage and HP will change during LVLup, change struct into abstract
@@ -110,18 +110,18 @@ int main (int argc, char* argv[]) {
    gameInfo.turn = 0;
    gameInfo.score = 0;
    //also change struct to abstract
-   
+
    while (NOT_DEAD) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
       entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
-      //printStatus() should be included into printMap      
+      //printStatus() should be included into printMap
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
          printMap(mapArray, entityArray, roomWidth, roomHeight);
          // get command (look at wiki for commands) from keyboard
          // stacked else ifs for all commands that lead to their own function
          // else print "Invalid command"
          //e.g
-         
+
          //while turnPassed == FALSE
          while ((turnPassed == FALSE) && (NOT_DEAD)) {
             printf("What will you do?\n"); //awaiting response
@@ -133,7 +133,7 @@ int main (int argc, char* argv[]) {
          //} else if { etc.
          //inventory system will print out another screen and have a similar infinite loop
          //right now I think that at the end of the resolutions of all the legal commands, then the map and status screen
-         //should be reprinted 
+         //should be reprinted
             } else if (strcmp(command, "down") == SAME) {
                printf("You move down.\n");
             } else if(strcmp(command, "right") == SAME) {
@@ -156,7 +156,7 @@ int main (int argc, char* argv[]) {
                         turnPassed = TRUE;
                      }
                   }
-               
+
             } else {
                printf("Invalid command.\n");
             }
@@ -169,7 +169,7 @@ int main (int argc, char* argv[]) {
    printf("You have died!\n");
    printf("Your score is %d.\n",gameInfo.score);
       //death checks will occur during monster or player movements
-      //monster movements will be a separate function which will walk through the entityInfo array          
+      //monster movements will be a separate function which will walk through the entityInfo array
 
 
 
