@@ -62,7 +62,7 @@ void generateMap(int* width, int* height) { //generates random dimensions of roo
    srand(time(NULL));
    *width = randint(12) + 3;
    *height = randint(12) +3;
-   printf("%d, %d", *width, *height);
+   //printf("%d, %d", *width, *height);
    return;
 }
 
