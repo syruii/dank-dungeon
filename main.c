@@ -61,6 +61,7 @@ typedef struct _game {
 #include "attack.h"
 #include "moveEntity.h"
 
+
 int main (int argc, char* argv[]) {
    game gameInfo;
    entity entityInfo[MAX_ENTITIES];
@@ -128,19 +129,45 @@ int main (int argc, char* argv[]) {
             printf("What will you do?\n"); //awaiting response
             scanf("%9s",command);
             printf("\n");
-            if (strcmp(command,"up") == SAME) {
+            int posx = entityInfo[PLAYER_INDEX].entityx;
+            int posy = entityInfo[PLAYER_INDEX].entityy;
+            if (strcmp(command,"up") == SAME ){
+                    direction = UP;
+                    move(entityArray, mapArray, direction, entityIndex, entityInfo);
+                    printMap(mapArray, entityArray, roomWidth, roomHeight);
+ /*               entityArray[posx][posy-1] = '@';
+//Set old position to be empty
+            entityArray[posx][posy] = NO_ENTITY;
+//Set player info to new position, up one
+            entityInfo[PLAYER_INDEX].entityy--;
                printf("You move up.\n");
+               printMap(mapArray, entityArray, roomWidth, roomHeight);
+               printf ("%d", posy);
+*/
+//debugging
+    /*  printf("%c", entityArray[entityx][entityy]);
+      printf("%d", entityInfo[PLAYER_INDEX].entityx);
+        printf("%d", entityInfo[PLAYER_INDEX].entityy);
+        printf("entityArray x = %d", entityArray[x][y]);*/
+
          //move(entityArray[][15], mapArray[][15], UP, entityInfo[0,ENTITY_X], entityInfo[0,ENTITY_Y]);
          //} else if { etc.
          //inventory system will print out another screen and have a similar infinite loop
          //right now I think that at the end of the resolutions of all the legal commands, then the map and status screen
          //should be reprinted
             } else if (strcmp(command, "down") == SAME) {
-               printf("You move down.\n");
+                direction = DOWN;
+                move(entityArray, mapArray, direction, entityIndex, entityInfo);
+                printMap(mapArray, entityArray, roomWidth, roomHeight);
             } else if(strcmp(command, "right") == SAME) {
-               printf("You move right.\n");
+                direction = RIGHT;
+                move(entityArray, mapArray, direction, entityIndex, entityInfo);
+                printMap(mapArray, entityArray, roomWidth, roomHeight);
             } else if(strcmp(command, "left") == SAME) {
-               printf("You move left.\n");
+                direction = LEFT;
+                move(entityArray, mapArray, direction, entityIndex, entityInfo);
+                printMap(mapArray, entityArray, roomWidth, roomHeight);
+
          //} else if(strcmp(comand, "attack") == SAME) {
          //   prinf("Attack in which direction?\n");
          //   scanf("%9s"
