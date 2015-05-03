@@ -30,7 +30,7 @@ void placePlayer (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], cha
       generatePosition(roomWidth, roomHeight, &posx, &posy);
       printf("%c\n",mapArray[posx][posy]);
    }
-   entityArray[posx][posy] = '@';
+   entityArray[posx][posy] = PLAYER_CHAR;
 // the player character will always be designated with @
    entityInfo[0].entityx = posx;
    entityInfo[0].entityy = posy;
