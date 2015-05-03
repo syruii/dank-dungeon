@@ -32,7 +32,7 @@ int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE]
       } 
    } else if (direction == LEFT) {
       if (entityInfo[attackerIndex].entityx-1 > -1) {
-         if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx-1,entityInfo[attackerIndex].entityy-1,entityArray,entityInfo)) != FALSE) {
+         if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx-1,entityInfo[attackerIndex].entityy,entityArray,entityInfo)) != FALSE) {
             damageCalc(entityInfo,entityArray,attackerIndex,defenderIndex,gameInfo);
             result = SUCCESS;
          }
