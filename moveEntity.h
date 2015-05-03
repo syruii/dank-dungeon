@@ -3,19 +3,6 @@
    First written 8/04/15.
    Move function requires entity symbol to be already loaded into array
 */
-char entityArray [MAP_SIZE][MAP_SIZE];
-char mapArray [MAP_SIZE][MAP_SIZE];
-int entityx;
-int entityy;
-int x;
-int y;
-int entityInfo;
-int posx;
-int posy;
-int entityIndex;
-int posx;
-int posy;
-
 #define UP 0
 #define DOWN 1
 #define RIGHT 2
@@ -28,32 +15,29 @@ int move(char entityArray[MAP_SIZE][MAP_SIZE], char mapArray[MAP_SIZE][MAP_SIZE]
        valid = entityCheck(x, y, entityArray, entityInfo);
 
    if (valid == FALSE) {*/
-       int posx = entityInfo[PLAYER_INDEX].entityx;
-       int posy = entityInfo[PLAYER_INDEX].entityy;
+       int posx = entityInfo[entityIndex].entityx;
+       int posy = entityInfo[entityIndex].entityy;
       assert(direction == (UP) || direction == (DOWN) || direction == (LEFT) || direction == (RIGHT));
-      if (direction == UP && entityInfo[PLAYER_INDEX].entityy-1 != -1 && entityArray[posx][posy-1] == NO_ENTITY) {
+      if (direction == UP && entityInfo[entityIndex].entityy-1 != -1 && entityArray[posx][posy-1] == NO_ENTITY) {
          entityArray[posx][posy-1] = '@';
          entityArray[posx][posy] = NO_ENTITY;
-         entityInfo[PLAYER_INDEX].entityy--;
-         printf("You move up.\n");
-      } else if (direction == DOWN && entityInfo[PLAYER_INDEX].entityy+1 < MAP_SIZE && entityArray[posx][posy+1] == NO_ENTITY) {
+         entityInfo[entityIndex].entityy--;
+      } else if (direction == DOWN && entityInfo[entityIndex].entityy+1 < MAP_SIZE && entityArray[posx][posy+1] == NO_ENTITY) {
          entityArray[posx][posy+1] = '@';
          entityArray[posx][posy] = NO_ENTITY;
-         entityInfo[PLAYER_INDEX].entityy++;
-         printf("You move down.\n");
-      } else if (direction == RIGHT && entityInfo[PLAYER_INDEX].entityx+1 < MAP_SIZE && entityArray[posx+1][posy] == NO_ENTITY) {
+         entityInfo[entityIndex].entityy++;
+      } else if (direction == RIGHT && entityInfo[entityIndex].entityx+1 < MAP_SIZE && entityArray[posx+1][posy] == NO_ENTITY) {
          entityArray[posx+1][posy] = '@';
          entityArray[posx][posy] = NO_ENTITY;
-         entityInfo[PLAYER_INDEX].entityx++;
-         printf("You move right.\n");
-      } else if (direction == LEFT && entityInfo[PLAYER_INDEX].entityx-1 != -1 && entityArray[posx-1][posy] == NO_ENTITY) {
+         entityInfo[entityIndex].entityx++;
+      } else if (direction == LEFT && entityInfo[entityIndex].entityx-1 != -1 && entityArray[posx-1][posy] == NO_ENTITY) {
          entityArray[posx-1][posy] = '@';
          entityArray[posx][posy] = NO_ENTITY;
-         entityInfo[PLAYER_INDEX].entityx--;
-         printf("You move left.\n");
+         entityInfo[entityIndex].entityx--;
        }else {
       printf ("I can't let you do that\n"); //returns to calling function where if it is called from player movement returns an erro
    }
+   return EXIT_SUCCESS;
 }
 /*//Old obstructiocheck, only checked if space was empty, did not return what was in the location
 int obstructionCheck(char entityArray, char mapArray, int direction, int entityx, int entityy) {

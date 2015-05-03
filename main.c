@@ -129,21 +129,11 @@ int main (int argc, char* argv[]) {
             printf("What will you do?\n"); //awaiting response
             scanf("%9s",command);
             printf("\n");
-            int posx = entityInfo[PLAYER_INDEX].entityx;
-            int posy = entityInfo[PLAYER_INDEX].entityy;
             if (strcmp(command,"up") == SAME ){
                     direction = UP;
-                    move(entityArray, mapArray, direction, entityIndex, entityInfo);
-                    printMap(mapArray, entityArray, roomWidth, roomHeight);
- /*               entityArray[posx][posy-1] = '@';
-//Set old position to be empty
-            entityArray[posx][posy] = NO_ENTITY;
-//Set player info to new position, up one
-            entityInfo[PLAYER_INDEX].entityy--;
-               printf("You move up.\n");
-               printMap(mapArray, entityArray, roomWidth, roomHeight);
-               printf ("%d", posy);
-*/
+                    move(entityArray, mapArray, direction, PLAYER_INDEX, entityInfo);
+                    turnPassed = TRUE;
+            printf("You move up.\n");
 //debugging
     /*  printf("%c", entityArray[entityx][entityy]);
       printf("%d", entityInfo[PLAYER_INDEX].entityx);
@@ -157,17 +147,19 @@ int main (int argc, char* argv[]) {
          //should be reprinted
             } else if (strcmp(command, "down") == SAME) {
                 direction = DOWN;
-                move(entityArray, mapArray, direction, entityIndex, entityInfo);
-                printMap(mapArray, entityArray, roomWidth, roomHeight);
+                move(entityArray, mapArray, direction, PLAYER_INDEX, entityInfo);
+                turnPassed = TRUE;
+                printf("You move down.\n");
             } else if(strcmp(command, "right") == SAME) {
                 direction = RIGHT;
-                move(entityArray, mapArray, direction, entityIndex, entityInfo);
-                printMap(mapArray, entityArray, roomWidth, roomHeight);
+                move(entityArray, mapArray, direction, PLAYER_INDEX, entityInfo);
+                turnPassed = TRUE;
+                printf("You move right.\n");
             } else if(strcmp(command, "left") == SAME) {
                 direction = LEFT;
-                move(entityArray, mapArray, direction, entityIndex, entityInfo);
-                printMap(mapArray, entityArray, roomWidth, roomHeight);
-
+                move(entityArray, mapArray, direction, PLAYER_INDEX, entityInfo);
+                turnPassed = TRUE;
+                printf("You move left.\n");
          //} else if(strcmp(comand, "attack") == SAME) {
          //   prinf("Attack in which direction?\n");
          //   scanf("%9s"
