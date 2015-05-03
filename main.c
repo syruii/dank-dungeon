@@ -2,6 +2,8 @@
    Logic has not been fully worked out, and everything is subject to change.
 */
 
+//IMPORTANT NOTE : ENCOUNTERED SITUATION WHEN '+' TO LEFT OF PLAYER CHARACTER WAS NOT ABLE TO BE ATTACKED 01/05
+
 #define NO_ENTITY '0'
 #define EMPTY_SPACE '.'
 #define TRUE 1
@@ -30,6 +32,8 @@
 #define NOT_DEAD entityInfo[0].dead == FALSE
 
 #define PLAYER_INDEX 0
+#define PLAYER_CHAR '@'
+
 //definitions for entity/Info struct
 typedef struct _entity {
    char entitySymbol;
@@ -54,9 +58,11 @@ typedef struct _game {
 
 // function headers
 #include "randint.h"
+#include "death.h"
 #include "mapGenerate.h"
-#include "entityPopulate.h"
 #include "entityCheck.h"
+#include "moveEntity.h"
+#include "entityPopulate.h"
 #include "direction.h"
 #include "attack.h"
 
@@ -102,11 +108,12 @@ int main (int argc, char* argv[]) {
    char command [10]; //string store for the command, set to maximum character of 9 now, can hold any command since no need to remember
    int levelComplete = FALSE;
    //initialise player, lvl, damage and HP will change during LVLup, change struct into abstract
-   entityInfo[0].dead = FALSE;
-   entityInfo[0].entityLVL = 1;
-   entityInfo[0].baseDamage = 4 + randint(2);
-   entityInfo[0].entityHP = randint(10) + 18; //ezy mode
-
+   entityInfo[PLAYER_INDEX].dead = FALSE;
+   entityInfo[PLAYER_INDEX].entityLVL = 1;
+   entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
+   entityInfo[PLAYER_INDEX].baseDamage = 4 + randint(2);
+   entityInfo[PLAYER_INDEX].entityHP = randint(10) + 18; //ezy mode
+   strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
    gameInfo.turn = 0;
    gameInfo.score = 0;
    //also change struct to abstract
@@ -128,18 +135,36 @@ int main (int argc, char* argv[]) {
             scanf("%9s",command);
             printf("\n");
             if (strcmp(command,"up") == SAME) {
-               printf("You move up.\n");
-         //move(entityArray[][15], mapArray[][15], UP, entityInfo[0,ENTITY_X], entityInfo[0,ENTITY_Y]);
-         //} else if { etc.
+               if (move(roomWidth,roomHeight,entityArray,mapArray,UP,PLAYER_INDEX,entityInfo) == TRUE) {
+                  printf("You move up.\n");
+                  turnPassed = TRUE;
+               } else {
+                  printf("You can't move there!\n");
+               }
          //inventory system will print out another screen and have a similar infinite loop
          //right now I think that at the end of the resolutions of all the legal commands, then the map and status screen
          //should be reprinted 
             } else if (strcmp(command, "down") == SAME) {
-               printf("You move down.\n");
+               if (move(roomWidth,roomHeight,entityArray,mapArray,DOWN,PLAYER_INDEX,entityInfo) == TRUE) {
+                  printf("You move down.\n");
+                  turnPassed = TRUE;
+               } else {
+                  printf("You can't move there!\n");
+               }
             } else if(strcmp(command, "right") == SAME) {
-               printf("You move right.\n");
+               if (move(roomWidth,roomHeight,entityArray,mapArray,RIGHT,PLAYER_INDEX,entityInfo) == TRUE) {
+                  printf("You move right.\n");
+                  turnPassed = TRUE;
+               } else {
+                  printf("You can't move there!\n");
+               }
             } else if(strcmp(command, "left") == SAME) {
-               printf("You move left.\n");
+               if (move(roomWidth,roomHeight,entityArray,mapArray,LEFT,PLAYER_INDEX,entityInfo )== TRUE) {
+                  printf("You move left.\n");
+                  turnPassed = TRUE;
+               } else {
+                  printf("You can't move there!\n");
+               }
          //} else if(strcmp(comand, "attack") == SAME) {
          //   prinf("Attack in which direction?\n");
          //   scanf("%9s"
@@ -150,7 +175,7 @@ int main (int argc, char* argv[]) {
                   printf("Attack in which direction?\n");
                   direction = getDirection();
                   if (direction != -1) {
-                     if (attack(PLAYER_INDEX,direction,entityArray,entityInfo) == FALSE) {
+                     if (attack(PLAYER_INDEX,direction,entityArray,entityInfo,&gameInfo) == FALSE) {
                         printf("There is nothing to attack!\n");
                      } else {
                         turnPassed = TRUE;
@@ -170,7 +195,6 @@ int main (int argc, char* argv[]) {
    printf("Your score is %d.\n",gameInfo.score);
       //death checks will occur during monster or player movements
       //monster movements will be a separate function which will walk through the entityInfo array          
-
 
 
    return EXIT_SUCCESS;
