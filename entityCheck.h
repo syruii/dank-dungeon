@@ -4,7 +4,7 @@
 
 int entityCheck(int x, int y, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[]) {
    if (entityArray[x][y] != NO_ENTITY) {
-      int i=1;
+      int i=0;
       while (i<8) {
          if ((entityInfo[i].entityx == x) && (entityInfo[i].entityy == y)) {
             return i;

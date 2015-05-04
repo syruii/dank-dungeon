@@ -7,7 +7,7 @@
 #define NO_ENTITY '0'
 #define EMPTY_SPACE '.'
 #define TRUE 1
-#define FALSE 0
+#define FALSE -1
 
 #define SAME 0
 //stupid strcmp
@@ -65,6 +65,7 @@ typedef struct _game {
 #include "entityPopulate.h"
 #include "direction.h"
 #include "attack.h"
+#include "aiTurn.h"
 
 int main (int argc, char* argv[]) {
    game gameInfo;
@@ -107,6 +108,7 @@ int main (int argc, char* argv[]) {
    int turnPassed = FALSE; 
    char command [10]; //string store for the command, set to maximum character of 9 now, can hold any command since no need to remember
    int levelComplete = FALSE;
+   int monNumberOnFloor = 0;
    //initialise player, lvl, damage and HP will change during LVLup, change struct into abstract
    entityInfo[PLAYER_INDEX].dead = FALSE;
    entityInfo[PLAYER_INDEX].entityLVL = 1;
@@ -120,7 +122,7 @@ int main (int argc, char* argv[]) {
    
    while (NOT_DEAD) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
-      entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
+      monNumberOnFloor = entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
       //printStatus() should be included into printMap      
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
          printMap(mapArray, entityArray, roomWidth, roomHeight);
@@ -187,6 +189,7 @@ int main (int argc, char* argv[]) {
             }
             printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
          }
+         aiTurn(entityInfo,entityArray,mapArray,roomWidth,roomHeight,&gameInfo,monNumberOnFloor);
          turnPassed = FALSE;
          gameInfo.turn++;
       }

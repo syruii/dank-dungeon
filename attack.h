@@ -9,6 +9,7 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
 int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[MAX_ENTITIES], game* gameInfo) {
    int defenderIndex = 0;
    int result = FAIL;
+
    if (direction == UP) {
       if (entityInfo[attackerIndex].entityy-1 > -1) {//could probably be reworked to be better, check against attacking a wall
             if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx,entityInfo[attackerIndex].entityy-1,entityArray,entityInfo)) != FALSE) {
@@ -50,10 +51,12 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
       printf("Critical hit!\n");
       damage *= 1.5;
    }
-   printf("You deal %d damage to %s!\n",damage,entityInfo[defenderIndex].entityDescription);
    entityInfo[defenderIndex].entityHP -= damage;
    if (attackerIndex == PLAYER_INDEX) {
       gameInfo->score += damage;
+      printf("You deal %d damage to %s!\n",damage,entityInfo[defenderIndex].entityDescription);
+   } else {
+      printf("You take %d damage from %s!\n",damage,entityInfo[attackerIndex].entityDescription);
    }
    if (entityInfo[defenderIndex].entityHP < 1) {
       death(defenderIndex, entityArray, entityInfo);
