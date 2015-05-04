@@ -1,6 +1,7 @@
 //Contains calling functions for the monster AI within the game
 //All monster are hostile to player, friendly to other monsters
 //ALL MONSTERS ARE EQUAL.
+//Program written on 04/05
 
 
 int abs(int a);
@@ -12,26 +13,28 @@ void aiTurn(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE
    int direction;
    int distanceSquared = 0;
    while (monsterIndex <= monNumberOnFloor) {
-      distanceSquared = playerDistanceSquared(entityInfo,monsterIndex);
-      if (distanceSquared == 1) { //"right behind you"
-         direction = aiPath(entityInfo,entityArray,monsterIndex);
-         attack(monsterIndex,direction,entityArray,entityInfo,gameInfo);
-      } else if (distanceSquared < 26) {
-         direction = aiPath(entityInfo,entityArray,monsterIndex);
-         if (direction > -1) {
-            move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo);
-         }
-      } else {
-         direction = randint(3);
-         while(move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo) == FALSE) {
-            direction = randint(3);
-         }
-      }
-      if (randint(10) == 0) {
-         if (randint(2) == 0) {
-            printf("A growl from %s echoes through the room.\n",entityInfo[monsterIndex].entityDescription);
+      if (entityInfo[monsterIndex].dead == FALSE) {
+         distanceSquared = playerDistanceSquared(entityInfo,monsterIndex);
+         if (distanceSquared == 1) { //"right behind you"
+            direction = aiPath(entityInfo,entityArray,monsterIndex);
+            attack(monsterIndex,direction,entityArray,entityInfo,gameInfo);
+         } else if (distanceSquared < 26) {
+            direction = aiPath(entityInfo,entityArray,monsterIndex);
+            if (direction > -1) {
+               move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo);
+            }
          } else {
-            printf("You hear scratching sounds on the wall, probably from %s.\n", entityInfo[monsterIndex].entityDescription);
+            direction = randint(3);
+            while(move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo) == FALSE) {
+               direction = randint(3);
+            }
+         }
+         if (randint(10) == 0) {
+            if (randint(2) == 0) {
+               printf("A growl from %s echoes through the room.\n",entityInfo[monsterIndex].entityDescription);
+            } else {
+               printf("You hear scratching sounds on the wall, probably from %s.\n", entityInfo[monsterIndex].entityDescription);
+            }
          }
       }
       monsterIndex++;

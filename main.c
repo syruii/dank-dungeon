@@ -6,6 +6,7 @@
 
 #define NO_ENTITY '0'
 #define EMPTY_SPACE '.'
+#define STAIRS '>'
 #define TRUE 1
 #define FALSE -1
 
@@ -59,11 +60,13 @@ typedef struct _game {
 // function headers
 #include "randint.h"
 #include "death.h"
+#include "yesno.h"
 #include "mapGenerate.h"
 #include "entityCheck.h"
 #include "moveEntity.h"
 #include "entityPopulate.h"
 #include "direction.h"
+#include "clearLevel.h"
 #include "attack.h"
 #include "aiTurn.h"
 
@@ -77,21 +80,9 @@ int main (int argc, char* argv[]) {
    int roomHeight;
    int direction = 0; //not actually a direction
    
-   int i=0,j=0;
    char mapArray[MAP_SIZE][MAP_SIZE];
-   for (i = 0; i < MAP_SIZE; i++) {            //populates mapArray with empty tiles
-      for (j = 0; j < MAP_SIZE; j++) {
-         mapArray[i][j] = EMPTY_SPACE;
-      }
-   }
-   
    char entityArray[MAP_SIZE][MAP_SIZE];
-   for (i = 0; i < MAP_SIZE; i++) {            //populates entityArray with no entities on the map
-      for (j = 0; j < MAP_SIZE; j++) {
-         entityArray[i][j] = NO_ENTITY;
-      }
-   }
-
+   clearLevel(mapArray,entityArray,entityInfo);
 /* ~~~~~
   test for entityPopulate
    ~~~~~ */
@@ -122,6 +113,7 @@ int main (int argc, char* argv[]) {
    
    while (NOT_DEAD) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
+      placeStairs(mapArray,roomWidth,roomHeight);
       monNumberOnFloor = entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
       //printStatus() should be included into printMap      
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
@@ -174,26 +166,42 @@ int main (int argc, char* argv[]) {
                printf("You commit sudoku :(\n");
                entityInfo[PLAYER_INDEX].dead = TRUE;
             } else if (strcmp(command,"attack") == SAME) {
-                  printf("Attack in which direction?\n");
-                  direction = getDirection();
-                  if (direction != -1) {
-                     if (attack(PLAYER_INDEX,direction,entityArray,entityInfo,&gameInfo) == FALSE) {
-                        printf("There is nothing to attack!\n");
-                     } else {
-                        turnPassed = TRUE;
-                     }
+               printf("Attack in which direction?\n");
+               direction = getDirection();
+               if (direction != -1) {
+                  if (attack(PLAYER_INDEX,direction,entityArray,entityInfo,&gameInfo) == FALSE) {
+                     printf("There is nothing to attack!\n");
+                  } else {
+                     turnPassed = TRUE;
                   }
-               
+               }
+            } else if (strcmp(command,"wait") == SAME) {
+               turnPassed = TRUE; 
+            } else if (strcmp(command,"descend") == SAME) {         
+               if (mapArray[entityInfo[PLAYER_INDEX].entityx][entityInfo[PLAYER_INDEX].entityy] == STAIRS) {
+                  printf("Are you sure you want to descend? [yes/no]\n");
+                  if (getYes() == TRUE) {
+                     levelComplete = TRUE;
+                     clearLevel(mapArray,entityArray,entityInfo);
+                     turnPassed = TRUE;
+                  }
+               } else {
+                  printf("You aren't standing on the stairs.\n");
+               }        
             } else {
                printf("Invalid command.\n");
             }
-            printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
          }
-         aiTurn(entityInfo,entityArray,mapArray,roomWidth,roomHeight,&gameInfo,monNumberOnFloor);
+         if (levelComplete == FALSE) { //stops you being attacked when going descending
+            aiTurn(entityInfo,entityArray,mapArray,roomWidth,roomHeight,&gameInfo,monNumberOnFloor);
+         }
          turnPassed = FALSE;
          gameInfo.turn++;
+         printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
       }
+      levelComplete = FALSE;
    }
+   printMap(mapArray, entityArray, roomWidth, roomHeight);
    printf("You have died!\n");
    printf("Your score is %d.\n",gameInfo.score);
       //death checks will occur during monster or player movements
