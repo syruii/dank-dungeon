@@ -2,7 +2,6 @@
 //May be appended later to include ranged weaponry, or a separate function created
 //Attack returns TRUE if the attack went through, FALSE if it does not
 #define SUCCESS 1
-
 void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_SIZE], int attackerIndex, int defenderIndex, game* gameInfo);
 
 int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[MAX_ENTITIES], game* gameInfo) {
@@ -69,17 +68,13 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
       }
       if (attackerIndex == PLAYER_INDEX) {
          gameInfo->score += entityInfo[defenderIndex].entityLVL*100;
-         int exp;
-         int expNextLVL;
-         int LVLup;
-         int currentFloor;
-         exp += currentFloor;
-         expNextLVL = currentFloor * currentFloor;
-            if (expNextLVL - exp >= 0) {
+         entityInfo[PLAYER_INDEX].exp += gameInfo->currentFloor;
+         entityInfo[PLAYER_INDEX].expNextLVL = gameInfo->currentFloor * gameInfo->currentFloor;
+            if (entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp >= 0) {
             entityInfo[PLAYER_INDEX].entityLVL++;
             printf ("Lvl up! You are now lvl %d \n", entityInfo[PLAYER_INDEX].entityLVL);
-            LVLup = TRUE;
             }
+         }
       }
 }
 

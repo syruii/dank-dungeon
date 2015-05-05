@@ -45,6 +45,8 @@ typedef struct _entity {
    int entityx; //yes i could use unsigned char but whatever
    int entityy;
    int dead;
+   int exp;
+   int expNextLVL;
 } entity;
 
 typedef struct _game {
@@ -69,24 +71,25 @@ typedef struct _game {
 #include "clearLevel.h"
 #include "attack.h"
 #include "aiTurn.h"
+#include "expCalc.h"
 
 int main (int argc, char* argv[]) {
    game gameInfo;
    entity entityInfo[MAX_ENTITIES];
    //printTitle()
-   //int playerName; 
+   //int playerName;
    //read in playername
    int roomWidth;
    int roomHeight;
    int direction = 0; //not actually a direction
-   
+
    char mapArray[MAP_SIZE][MAP_SIZE];
    char entityArray[MAP_SIZE][MAP_SIZE];
    clearLevel(mapArray,entityArray,entityInfo);
 /* ~~~~~
   test for entityPopulate
    ~~~~~ */
-/* TEST WAS PASSED 
+/* TEST WAS PASSED
    generateMap (&roomWidth, &roomHeight);
    printf("Height of room should be %d, Width should be %d\n", roomHeight, roomWidth);
    entityPopulate (entityArray, entityInfo, mapArray, playerLevel, roomWidth, roomHeight);
@@ -94,9 +97,8 @@ int main (int argc, char* argv[]) {
    // ENTITY SYMBOL | ENTITY X | ENTITY Y | ENTITY LVL | ENTITY HP
    // possibly other stuff, row 0 will always be player unsigned character
    // consider it a database with the primary key being entity symbol
-
 */
-   int turnPassed = FALSE; 
+   int turnPassed = FALSE;
    char command [10]; //string store for the command, set to maximum character of 9 now, can hold any command since no need to remember
    int levelComplete = FALSE;
    int monNumberOnFloor = 0;
@@ -104,25 +106,25 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].dead = FALSE;
    entityInfo[PLAYER_INDEX].entityLVL = 1;
    entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
-   entityInfo[PLAYER_INDEX].baseDamage = 4 + randint(2);
+   entityInfo[PLAYER_INDEX].baseDamage = 69 + randint(2);
    entityInfo[PLAYER_INDEX].entityHP = randint(10) + 18; //ezy mode
    strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
    gameInfo.turn = 0;
    gameInfo.score = 0;
    //also change struct to abstract
-   
+
    while (NOT_DEAD) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
       placeStairs(mapArray,roomWidth,roomHeight);
       monNumberOnFloor = entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
-      //printStatus() should be included into printMap      
+      //printStatus() should be included into printMap
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
          printMap(mapArray, entityArray, roomWidth, roomHeight);
          // get command (look at wiki for commands) from keyboard
          // stacked else ifs for all commands that lead to their own function
          // else print "Invalid command"
          //e.g
-         
+
          //while turnPassed == FALSE
          while ((turnPassed == FALSE) && (NOT_DEAD)) {
             printf("What will you do?\n"); //awaiting response
@@ -137,7 +139,7 @@ int main (int argc, char* argv[]) {
                }
          //inventory system will print out another screen and have a similar infinite loop
          //right now I think that at the end of the resolutions of all the legal commands, then the map and status screen
-         //should be reprinted 
+         //should be reprinted
             } else if (strcmp(command, "down") == SAME) {
                if (move(roomWidth,roomHeight,entityArray,mapArray,DOWN,PLAYER_INDEX,entityInfo) == TRUE) {
                   printf("You move down.\n");
@@ -176,8 +178,8 @@ int main (int argc, char* argv[]) {
                   }
                }
             } else if (strcmp(command,"wait") == SAME) {
-               turnPassed = TRUE; 
-            } else if (strcmp(command,"descend") == SAME) {         
+               turnPassed = TRUE;
+            } else if (strcmp(command,"descend") == SAME) {
                if (mapArray[entityInfo[PLAYER_INDEX].entityx][entityInfo[PLAYER_INDEX].entityy] == STAIRS) {
                   printf("Are you sure you want to descend? [yes/no]\n");
                   if (getYes() == TRUE) {
@@ -187,7 +189,7 @@ int main (int argc, char* argv[]) {
                   }
                } else {
                   printf("You aren't standing on the stairs.\n");
-               }        
+               }
             } else {
                printf("Invalid command.\n");
             }
@@ -197,6 +199,7 @@ int main (int argc, char* argv[]) {
          }
          turnPassed = FALSE;
          gameInfo.turn++;
+         gameInfo.currentFloor++;
          printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
       }
       levelComplete = FALSE;
@@ -205,7 +208,7 @@ int main (int argc, char* argv[]) {
    printf("You have died!\n");
    printf("Your score is %d.\n",gameInfo.score);
       //death checks will occur during monster or player movements
-      //monster movements will be a separate function which will walk through the entityInfo array          
+      //monster movements will be a separate function which will walk through the entityInfo array
 
 
    return EXIT_SUCCESS;
