@@ -17,19 +17,19 @@ int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE]
             }
       }
    } else if (direction == DOWN) {
-      if (entityInfo[attackerIndex].entityy+1 < MAP_SIZE) { 
+      if (entityInfo[attackerIndex].entityy+1 < MAP_SIZE) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx,entityInfo[attackerIndex].entityy+1,entityArray,entityInfo)) != FALSE) {
             damageCalc(entityInfo,entityArray,attackerIndex,defenderIndex,gameInfo);
             result = SUCCESS;
          }
       }
    } else if (direction == RIGHT) {
-      if (entityInfo[attackerIndex].entityx+1 < MAP_SIZE) { 
+      if (entityInfo[attackerIndex].entityx+1 < MAP_SIZE) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx+1,entityInfo[attackerIndex].entityy,entityArray,entityInfo)) != FALSE) {
             damageCalc(entityInfo,entityArray,attackerIndex,defenderIndex,gameInfo);
             result = SUCCESS;
          }
-      } 
+      }
    } else if (direction == LEFT) {
       if (entityInfo[attackerIndex].entityx-1 > -1) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx-1,entityInfo[attackerIndex].entityy,entityArray,entityInfo)) != FALSE) {
@@ -69,9 +69,19 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
       }
       if (attackerIndex == PLAYER_INDEX) {
          gameInfo->score += entityInfo[defenderIndex].entityLVL*100;
+         int exp;
+         int expNextLVL;
+         int LVLup;
+         int currentFloor;
+         exp += currentFloor;
+         expNextLVL = currentFloor * currentFloor;
+            if (expNextLVL - exp >= 0) {
+            entityInfo[PLAYER_INDEX].entityLVL++;
+            printf ("Lvl up! You are now lvl %d \n", entityInfo[PLAYER_INDEX].entityLVL);
+            LVLup = TRUE;
+            }
       }
-   }
 }
-           
+
 
 

@@ -4,9 +4,7 @@
 //Program written on 04/05
 
 
-int abs(int a);
-int aiPath(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE], int monsterIndex); //always returns a valid direction
-int playerDistanceSquared (entity entityInfo[MAX_ENTITIES], int monsterIndex);
+
 
 void aiTurn(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE], char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight, game* gameInfo, int monNumberOnFloor) {
    int monsterIndex = 1; //skips player entity
@@ -66,18 +64,18 @@ int aiPath(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE]
    if (abs(xDiff) >= abs(yDiff) && moveBlocked != FALSE && moveBlocked != PLAYER_INDEX) { //if move is blocked by playerIndex, then should still
    //return direction to attack the player
       if (xDiff <= 0) { //entity to the left of player
-         direction = RIGHT;  
+         direction = RIGHT;
          moveBlocked = entityCheck(entityInfo[monsterIndex].entityx+1,entityInfo[monsterIndex].entityy,entityArray,entityInfo);
       }
       if (xDiff >= 0 && moveBlocked!= FALSE && moveBlocked != PLAYER_INDEX) {
-         direction = LEFT; 
+         direction = LEFT;
          moveBlocked = entityCheck(entityInfo[monsterIndex].entityx-1,entityInfo[monsterIndex].entityy,entityArray,entityInfo);
       }
    }
    if (moveBlocked != FALSE && moveBlocked != PLAYER_INDEX) {
       //entity is landlocked
       direction = -1; //stay still, wait for traffic to clear
-   } 
+   }
    return direction;
    //no need to check for walls, because a wall can't be between the player and entity;
 }
