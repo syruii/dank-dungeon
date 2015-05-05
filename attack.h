@@ -68,10 +68,20 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
       }
       if (attackerIndex == PLAYER_INDEX) {
          gameInfo->score += entityInfo[defenderIndex].entityLVL*100;
+//Exp calculated here, not currently balanced, if player grinds on one floor, expNext level doesn't reset
+//Perhaps have an expold and new to ensure expNextLVL refreshes
+//Want to have a different exp gain system based off entity level/difficulty, implemented when
+//entityLVL is done
          entityInfo[PLAYER_INDEX].exp += gameInfo->currentFloor;
-         entityInfo[PLAYER_INDEX].expNextLVL = gameInfo->currentFloor * gameInfo->currentFloor;
-            if (entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp >= 0) {
+         printf ("You gain %d exp\n", entityInfo[PLAYER_INDEX].exp);
+         entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
+//Muh secret formulae
+//       printf ("Next lvl is %d, exp is %d", entityInfo[PLAYER_INDEX].expNextLVL, entityInfo[PLAYER_INDEX].exp);
+            if ((entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp) <= 0) {
+//If statement test
+//          printf ("TESTING %d\n", entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp);
             entityInfo[PLAYER_INDEX].entityLVL++;
+            entityInfo[PLAYER_INDEX].exp = 0;
             printf ("Lvl up! You are now lvl %d \n", entityInfo[PLAYER_INDEX].entityLVL);
             }
          }

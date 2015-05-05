@@ -3,7 +3,6 @@
 */
 
 //IMPORTANT NOTE : ENCOUNTERED SITUATION WHEN '+' TO LEFT OF PLAYER CHARACTER WAS NOT ABLE TO BE ATTACKED 01/05
-
 #define NO_ENTITY '0'
 #define EMPTY_SPACE '.'
 #define STAIRS '>'
@@ -107,10 +106,12 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].entityLVL = 1;
    entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
    entityInfo[PLAYER_INDEX].baseDamage = 69 + randint(2);
-   entityInfo[PLAYER_INDEX].entityHP = randint(10) + 18; //ezy mode
+   entityInfo[PLAYER_INDEX].entityHP = randint(10) + 69; //ezy mode
+   entityInfo[PLAYER_INDEX].exp = 0;
    strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
    gameInfo.turn = 0;
    gameInfo.score = 0;
+   gameInfo.currentFloor = 1;
    //also change struct to abstract
 
    while (NOT_DEAD) { //infinite loop for game unless you die or quit (which will assign your death flag to true)
@@ -186,6 +187,7 @@ int main (int argc, char* argv[]) {
                      levelComplete = TRUE;
                      clearLevel(mapArray,entityArray,entityInfo);
                      turnPassed = TRUE;
+                     gameInfo.currentFloor++;
                   }
                } else {
                   printf("You aren't standing on the stairs.\n");
@@ -199,7 +201,6 @@ int main (int argc, char* argv[]) {
          }
          turnPassed = FALSE;
          gameInfo.turn++;
-         gameInfo.currentFloor++;
          printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
       }
       levelComplete = FALSE;
