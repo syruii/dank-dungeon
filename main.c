@@ -124,9 +124,11 @@ int main (int argc, char* argv[]) {
       generateMap(&roomWidth, &roomHeight); //returns to beginning of loop when you complete floor
       placeStairs(mapArray,roomWidth,roomHeight);
       monNumberOnFloor = entityPopulate (entityArray, entityInfo, mapArray, entityInfo[0].entityLVL, roomWidth, roomHeight);
-      //printStatus() should be included into printMap
+//MOVE THIS LATER, HERE FOR FUNCTIONALITY
+//      printStatus(); should be included into printMap
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
          printMap(mapArray, entityArray, roomWidth, roomHeight);
+         entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
          printStatus(gameInfo,entityInfo);
          // get command (look at wiki for commands) from keyboard
          // stacked else ifs for all commands that lead to their own function
@@ -174,7 +176,8 @@ int main (int argc, char* argv[]) {
          //   scanf("%9s"
             } else if (strcmp(command, "kill") == SAME) {
                printf("You commit sudoku :(\n");
-               entityInfo[PLAYER_INDEX].dead = TRUE;
+               death(PLAYER_INDEX,entityArray,entityInfo);
+               
             } else if (strcmp(command,"attack") == SAME) {
                printf("Attack in which direction?\n");
                direction = getDirection();
