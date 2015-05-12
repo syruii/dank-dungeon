@@ -74,7 +74,6 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
 //entityLVL is done
          entityInfo[PLAYER_INDEX].exp += gameInfo->currentFloor;
          printf ("You gain %d EXP.\n", entityInfo[PLAYER_INDEX].exp);
-         entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
 //Muh secret formulae
 //       printf ("Next lvl is %d, exp is %d", entityInfo[PLAYER_INDEX].expNextLVL, entityInfo[PLAYER_INDEX].exp);
             if ((entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp) <= 0) {
