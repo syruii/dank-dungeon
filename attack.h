@@ -84,8 +84,10 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
             entityInfo[PLAYER_INDEX].exp = 0;
             printf ("Lvl up! You are now lvl %d.\n", entityInfo[PLAYER_INDEX].entityLVL);
 //Set new maxHP for player, perhaps scale with dungeon floor/same scaling as mob damage
+//Scaling in general done here now
             entityInfo[PLAYER_INDEX].maxHP += randint(10) + 5;
             entityInfo[PLAYER_INDEX].entityHP = entityInfo[PLAYER_INDEX].maxHP;
+            entityInfo[PLAYER_INDEX].baseDamage += randint(2) +1;
     //Debugging, shouldn't need this.
     //        printf("current hp is %d, Maxhp is %d", entityInfo[PLAYER_INDEX].entityHP, entityInfo[PLAYER_INDEX].maxHP);
             }
