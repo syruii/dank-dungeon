@@ -113,6 +113,7 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].entityHP = randint(10) + 20; //ezy mode
    entityInfo[PLAYER_INDEX].maxHP = entityInfo[PLAYER_INDEX].entityHP;
    entityInfo[PLAYER_INDEX].exp = 0;
+   entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
    strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
    gameInfo.turn = 1;
    gameInfo.score = 0;
