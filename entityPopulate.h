@@ -41,7 +41,7 @@ void placePlayer (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], cha
 void generateMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], int playerLevel, int monNumber) {
    entityInfo[monNumber].entityLVL = randint(3) + playerLevel; //random level, game will be hard
    entityInfo[monNumber].entityHP = randint(10) + 2*entityInfo[monNumber].entityLVL + BASE_HP; //random HP @ LVL1 10-20 HP
-   entityInfo[monNumber].MaxHP = entityInfo[monNumber].entityHP;
+   entityInfo[monNumber].maxHP = entityInfo[monNumber].entityHP;
    entityInfo[monNumber].dead = FALSE;
    int descriptNumber = randint(9);
    if (descriptNumber == 0) {//randonmly generate a descrption (all monsters are created equal)

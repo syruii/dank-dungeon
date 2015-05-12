@@ -47,7 +47,7 @@ typedef struct _entity {
    int dead;
    int exp;
    int expNextLVL;
-   int MaxHP;
+   int maxHP;
 } entity;
 
 typedef struct _game {
@@ -72,11 +72,14 @@ typedef struct _game {
 #include "clearLevel.h"
 #include "attack.h"
 #include "aiTurn.h"
+#include "printStatus.h"
 
 int main (int argc, char* argv[]) {
    game gameInfo;
    entity entityInfo[MAX_ENTITIES];
    //printTitle()
+   printf("Welcome to Dank Dungeon!\nPlease enter your name (maximum 10 characters): ");
+   scanf("%10s",gameInfo.playerName);
    //int playerName;
    //read in playername
    int roomWidth;
@@ -108,10 +111,10 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
    entityInfo[PLAYER_INDEX].baseDamage = 4 + randint(2);
    entityInfo[PLAYER_INDEX].entityHP = randint(10) + 20; //ezy mode
-   entityInfo[PLAYER_INDEX].MaxHP = entityInfo[PLAYER_INDEX].entityHP;
+   entityInfo[PLAYER_INDEX].maxHP = entityInfo[PLAYER_INDEX].entityHP;
    entityInfo[PLAYER_INDEX].exp = 0;
    strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
-   gameInfo.turn = 0;
+   gameInfo.turn = 1;
    gameInfo.score = 0;
    gameInfo.currentFloor = 1;
    //also change struct to abstract
@@ -123,6 +126,7 @@ int main (int argc, char* argv[]) {
       //printStatus() should be included into printMap
       while ((levelComplete != TRUE) && (NOT_DEAD)) {
          printMap(mapArray, entityArray, roomWidth, roomHeight);
+         printStatus(gameInfo,entityInfo);
          // get command (look at wiki for commands) from keyboard
          // stacked else ifs for all commands that lead to their own function
          // else print "Invalid command"
@@ -203,11 +207,11 @@ int main (int argc, char* argv[]) {
          }
          turnPassed = FALSE;
          gameInfo.turn++;
-         entityInfo[PLAYER_INDEX].entityHP += (entityInfo[PLAYER_INDEX].MaxHP*PASSIVE_REGEN);
-//Prints the hp after each turn end, to see it's not exceeding MaxHP, and it's regening
+         entityInfo[PLAYER_INDEX].entityHP += (entityInfo[PLAYER_INDEX].maxHP*PASSIVE_REGEN);
+//Prints the hp after each turn end, to see it's not exceeding maxHP, and it's regening
 //         printf("hp is now %d",entityInfo[PLAYER_INDEX].entityHP);
-         if(entityInfo[PLAYER_INDEX].entityHP > entityInfo[PLAYER_INDEX].MaxHP){
-            entityInfo[PLAYER_INDEX].entityHP = entityInfo[PLAYER_INDEX].MaxHP;
+         if(entityInfo[PLAYER_INDEX].entityHP > entityInfo[PLAYER_INDEX].maxHP){
+            entityInfo[PLAYER_INDEX].entityHP = entityInfo[PLAYER_INDEX].maxHP;
          }
          printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
       }
