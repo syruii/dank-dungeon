@@ -109,7 +109,7 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].dead = FALSE;
    entityInfo[PLAYER_INDEX].entityLVL = 1;
    entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
-   entityInfo[PLAYER_INDEX].baseDamage = 48 + randint(2);
+   entityInfo[PLAYER_INDEX].baseDamage = 4 + randint(2);
    entityInfo[PLAYER_INDEX].entityHP = randint(10) + 20; //ezy mode
    entityInfo[PLAYER_INDEX].maxHP = entityInfo[PLAYER_INDEX].entityHP;
    entityInfo[PLAYER_INDEX].exp = 0;
