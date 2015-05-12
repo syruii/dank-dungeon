@@ -73,15 +73,15 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
 //Want to have a different exp gain system based off entity level/difficulty, implemented when
 //entityLVL is done
          entityInfo[PLAYER_INDEX].exp += gameInfo->currentFloor;
-         printf ("You gain %d exp\n", entityInfo[PLAYER_INDEX].exp);
          entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
+         printf ("Your exp is %d\n", entityInfo[PLAYER_INDEX].exp);
 //Muh secret formulae
 //       printf ("Next lvl is %d, exp is %d", entityInfo[PLAYER_INDEX].expNextLVL, entityInfo[PLAYER_INDEX].exp);
             if ((entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp) <= 0) {
 //If statement test
 //          printf ("TESTING %d\n", entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp);
             entityInfo[PLAYER_INDEX].entityLVL++;
-            entityInfo[PLAYER_INDEX].exp = 0;
+            entityInfo[PLAYER_INDEX].exp = entityInfo[PLAYER_INDEX].exp-entityInfo[PLAYER_INDEX].expNextLVL;
             printf ("Lvl up! You are now lvl %d \n", entityInfo[PLAYER_INDEX].entityLVL);
 //Set new MaxHP for player, perhaps scale with dungeon floor/same scaling as mob damage
             entityInfo[PLAYER_INDEX].MaxHP += randint(10) + 5;
