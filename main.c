@@ -174,7 +174,8 @@ int main (int argc, char* argv[]) {
          //   scanf("%9s"
             } else if (strcmp(command, "kill") == SAME) {
                printf("You commit sudoku :(\n");
-               entityInfo[PLAYER_INDEX].dead = TRUE;
+               death(PLAYER_INDEX,entityArray,entityInfo);
+               
             } else if (strcmp(command,"attack") == SAME) {
                printf("Attack in which direction?\n");
                direction = getDirection();
