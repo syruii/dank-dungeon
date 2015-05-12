@@ -2,7 +2,6 @@
 //May be appended later to include ranged weaponry, or a separate function created
 //Attack returns TRUE if the attack went through, FALSE if it does not
 #define SUCCESS 1
-
 void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_SIZE], int attackerIndex, int defenderIndex, game* gameInfo);
 
 int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[MAX_ENTITIES], game* gameInfo) {
@@ -17,19 +16,19 @@ int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE]
             }
       }
    } else if (direction == DOWN) {
-      if (entityInfo[attackerIndex].entityy+1 < MAP_SIZE) { 
+      if (entityInfo[attackerIndex].entityy+1 < MAP_SIZE) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx,entityInfo[attackerIndex].entityy+1,entityArray,entityInfo)) != FALSE) {
             damageCalc(entityInfo,entityArray,attackerIndex,defenderIndex,gameInfo);
             result = SUCCESS;
          }
       }
    } else if (direction == RIGHT) {
-      if (entityInfo[attackerIndex].entityx+1 < MAP_SIZE) { 
+      if (entityInfo[attackerIndex].entityx+1 < MAP_SIZE) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx+1,entityInfo[attackerIndex].entityy,entityArray,entityInfo)) != FALSE) {
             damageCalc(entityInfo,entityArray,attackerIndex,defenderIndex,gameInfo);
             result = SUCCESS;
          }
-      } 
+      }
    } else if (direction == LEFT) {
       if (entityInfo[attackerIndex].entityx-1 > -1) {
          if ((defenderIndex = entityCheck(entityInfo[attackerIndex].entityx-1,entityInfo[attackerIndex].entityy,entityArray,entityInfo)) != FALSE) {
@@ -69,9 +68,25 @@ void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_S
       }
       if (attackerIndex == PLAYER_INDEX) {
          gameInfo->score += entityInfo[defenderIndex].entityLVL*100;
+//Exp calculated here, not currently balanced, if player grinds on one floor, expNext level doesn't reset
+//Perhaps have an expold and new to ensure expNextLVL refreshes
+//Want to have a different exp gain system based off entity level/difficulty, implemented when
+//entityLVL is done
+         entityInfo[PLAYER_INDEX].exp += gameInfo->currentFloor;
+         printf ("You gain %d exp\n", entityInfo[PLAYER_INDEX].exp);
+         entityInfo[PLAYER_INDEX].expNextLVL = (entityInfo[PLAYER_INDEX].entityLVL * entityInfo[PLAYER_INDEX].entityLVL);
+//Muh secret formulae
+//       printf ("Next lvl is %d, exp is %d", entityInfo[PLAYER_INDEX].expNextLVL, entityInfo[PLAYER_INDEX].exp);
+            if ((entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp) <= 0) {
+//If statement test
+//          printf ("TESTING %d\n", entityInfo[PLAYER_INDEX].expNextLVL - entityInfo[PLAYER_INDEX].exp);
+            entityInfo[PLAYER_INDEX].entityLVL++;
+            entityInfo[PLAYER_INDEX].exp = 0;
+            printf ("Lvl up! You are now lvl %d \n", entityInfo[PLAYER_INDEX].entityLVL);
+            }
+         }
       }
-   }
 }
-           
+
 
 

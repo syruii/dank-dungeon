@@ -66,18 +66,18 @@ int aiPath(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE]
    if (abs(xDiff) >= abs(yDiff) && moveBlocked != FALSE && moveBlocked != PLAYER_INDEX) { //if move is blocked by playerIndex, then should still
    //return direction to attack the player
       if (xDiff <= 0) { //entity to the left of player
-         direction = RIGHT;  
+         direction = RIGHT;
          moveBlocked = entityCheck(entityInfo[monsterIndex].entityx+1,entityInfo[monsterIndex].entityy,entityArray,entityInfo);
       }
       if (xDiff >= 0 && moveBlocked!= FALSE && moveBlocked != PLAYER_INDEX) {
-         direction = LEFT; 
+         direction = LEFT;
          moveBlocked = entityCheck(entityInfo[monsterIndex].entityx-1,entityInfo[monsterIndex].entityy,entityArray,entityInfo);
       }
    }
    if (moveBlocked != FALSE && moveBlocked != PLAYER_INDEX) {
       //entity is landlocked
       direction = -1; //stay still, wait for traffic to clear
-   } 
+   }
    return direction;
    //no need to check for walls, because a wall can't be between the player and entity;
 }
