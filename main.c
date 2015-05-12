@@ -203,7 +203,7 @@ int main (int argc, char* argv[]) {
          }
          turnPassed = FALSE;
          gameInfo.turn++;
-         entityInfo[PLAYER_INDEX].entityHP += entityInfo[PLAYER_INDEX].MaxHP*PASSIVE_REGEN;
+         entityInfo[PLAYER_INDEX].entityHP += (entityInfo[PLAYER_INDEX].MaxHP*PASSIVE_REGEN);
 //Prints the hp after each turn end, to see it's not exceeding MaxHP, and it's regening
 //         printf("hp is now %d",entityInfo[PLAYER_INDEX].entityHP);
          if(entityInfo[PLAYER_INDEX].entityHP > entityInfo[PLAYER_INDEX].MaxHP){
