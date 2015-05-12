@@ -24,8 +24,8 @@ void aiTurn(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE
                move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo);
             }
          } else {
-            direction = randint(3);
-            while(move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo) == FALSE) {
+            direction = randint(5)-1;
+            while(direction > -1 && move(roomWidth,roomHeight,entityArray,mapArray,direction,monsterIndex,entityInfo) == FALSE) {
                direction = randint(5)-1;
             }
          }

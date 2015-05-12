@@ -44,7 +44,7 @@ int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE]
 void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_SIZE], int attackerIndex, int defenderIndex, game* gameInfo) {
    int damage = 0; //no miss chance because that's anti fun, you gotta know when you are dead, RNG is for losers
    //maybe edited later to include armor class
-   damage = randint((int)entityInfo[attackerIndex].baseDamage/2) + entityInfo[attackerIndex].baseDamage;
+   damage = randint((entityInfo[attackerIndex].baseDamage/2)) + entityInfo[attackerIndex].baseDamage;
    if (randint(10) == 0) {
       //critical hit
       printf("Critical hit!\n");
