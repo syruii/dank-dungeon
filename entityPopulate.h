@@ -20,7 +20,7 @@ int entityPopulate (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], c
       generateMonster(entityArray, entityInfo, playerLevel, monNumber);
       placeMonster (entityArray, entityInfo, mapArray, roomWidth, roomHeight, monNumber);
       monNumber++;
-   } 
+   }
    return monMax;
 }
 
@@ -36,12 +36,13 @@ void placePlayer (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], cha
    entityInfo[0].entityx = posx;
    entityInfo[0].entityy = posy;
    return;
-} 
+}
 
 void generateMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], int playerLevel, int monNumber) {
    entityInfo[monNumber].entityLVL = randint(3) + playerLevel; //random level, game will be hard
    entityInfo[monNumber].entityHP = randint(10) + 2*entityInfo[monNumber].entityLVL + BASE_HP; //random HP @ LVL1 10-20 HP
-   entityInfo[monNumber].dead = FALSE; 
+   entityInfo[monNumber].MaxHP = entityInfo[monNumber].entityHP;
+   entityInfo[monNumber].dead = FALSE;
    int descriptNumber = randint(9);
    if (descriptNumber == 0) {//randonmly generate a descrption (all monsters are created equal)
       strncpy(entityInfo[monNumber].entityDescription, "a loud bat", MAX_DESCRIPT_SIZE);
@@ -98,4 +99,4 @@ void generatePosition (int roomWidth, int roomHeight, int* posx, int* posy) {
    *posy = randint(roomHeight);
    return;
 }
- 
+

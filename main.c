@@ -33,6 +33,7 @@
 
 #define PLAYER_INDEX 0
 #define PLAYER_CHAR '@'
+#define PASSIVE_REGEN 0.05
 
 //definitions for entity/Info struct
 typedef struct _entity {
@@ -46,6 +47,7 @@ typedef struct _entity {
    int dead;
    int exp;
    int expNextLVL;
+   int MaxHP;
 } entity;
 
 typedef struct _game {
@@ -70,7 +72,6 @@ typedef struct _game {
 #include "clearLevel.h"
 #include "attack.h"
 #include "aiTurn.h"
-#include "expCalc.h"
 
 int main (int argc, char* argv[]) {
    game gameInfo;
@@ -105,8 +106,9 @@ int main (int argc, char* argv[]) {
    entityInfo[PLAYER_INDEX].dead = FALSE;
    entityInfo[PLAYER_INDEX].entityLVL = 1;
    entityInfo[PLAYER_INDEX].entitySymbol = PLAYER_CHAR;
-   entityInfo[PLAYER_INDEX].baseDamage = 69 + randint(2);
-   entityInfo[PLAYER_INDEX].entityHP = randint(10) + 69; //ezy mode
+   entityInfo[PLAYER_INDEX].baseDamage = 4 + randint(2);
+   entityInfo[PLAYER_INDEX].entityHP = randint(10) + 20; //ezy mode
+   entityInfo[PLAYER_INDEX].MaxHP = entityInfo[PLAYER_INDEX].entityHP;
    entityInfo[PLAYER_INDEX].exp = 0;
    strncpy(entityInfo[PLAYER_INDEX].entityDescription, "your player", MAX_DESCRIPT_SIZE);
    gameInfo.turn = 0;
@@ -201,6 +203,12 @@ int main (int argc, char* argv[]) {
          }
          turnPassed = FALSE;
          gameInfo.turn++;
+         entityInfo[PLAYER_INDEX].entityHP += entityInfo[PLAYER_INDEX].MaxHP*PASSIVE_REGEN;
+//Prints the hp after each turn end, to see it's not exceeding MaxHP, and it's regening
+//         printf("hp is now %d",entityInfo[PLAYER_INDEX].entityHP);
+         if(entityInfo[PLAYER_INDEX].entityHP > entityInfo[PLAYER_INDEX].MaxHP){
+            entityInfo[PLAYER_INDEX].entityHP = entityInfo[PLAYER_INDEX].MaxHP;
+         }
          printf("\n"); //might not be necessary, prints new line after any event to print what will you do?
       }
       levelComplete = FALSE;
