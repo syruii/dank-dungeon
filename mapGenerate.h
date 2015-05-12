@@ -1,5 +1,6 @@
 /* This includes the functions for printing the map and generating the map
    Program written on 8/04/15
+   revised on 04/05 with addition of stair placement
 */
 
 #include <time.h>
@@ -9,8 +10,9 @@
 #define MAP_SIZE 15
 
 void printMap(char mapArray[MAP_SIZE][MAP_SIZE], char entityArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight);  //have to pass second dimension of array
-void generateMap(int* Width, int* Height);
+//void generateMap(int* Width, int* Height);
 void printHorizontalBound(int roomWidth);
+//void placeStairs(char mapArray, int roomWidth, int roomHeight);
 
 /*
 int main () {
@@ -75,4 +77,8 @@ void printHorizontalBound(int roomWidth) {
       widthcount++;
    }
    return;
+}
+
+void placeStairs(char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight) {
+   mapArray[randint(roomWidth)][randint(roomHeight)] = STAIRS;
 }
