@@ -4,7 +4,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "main.h"
 #include "attack.h"
+
 
 int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[MAX_ENTITIES], game* gameInfo) {
    int defenderIndex = 0;
