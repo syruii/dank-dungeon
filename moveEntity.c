@@ -6,7 +6,7 @@
 
 #include "moveEntity.h"
 #include "main.h"
-
+int move(int roomWidth, int roomHeight, char entityArray[MAP_SIZE][MAP_SIZE], char mapArray[MAP_SIZE][MAP_SIZE], int direction, int entityIndex, entity entityInfo[MAX_ENTITIES]) {
    /*int valid;
        valid = entityCheck(x, y, entityArray, entityInfo);
 
