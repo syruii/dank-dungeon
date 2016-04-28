@@ -1,8 +1,10 @@
 //Includes the functions which deal damage to a space in a direction
 //May be appended later to include ranged weaponry, or a separate function created
 //Attack returns TRUE if the attack went through, FALSE if it does not
-#define SUCCESS 1
-void damageCalc(entity entityInfo[MAX_ENTITIES],char entityArray[MAP_SIZE][MAP_SIZE], int attackerIndex, int defenderIndex, game* gameInfo);
+
+#include <stdlib.h>
+#include <stdio.h>
+#include "attack.h"
 
 int attack(int attackerIndex,int direction, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[MAX_ENTITIES], game* gameInfo) {
    int defenderIndex = 0;
