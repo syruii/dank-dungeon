@@ -1,4 +1,7 @@
 //IMPORTANT NOTE : ENCOUNTERED SITUATION WHEN '+' TO LEFT OF PLAYER CHARACTER WAS NOT ABLE TO BE ATTACKED 01/05
+#ifndef MAIN
+#define MAIN
+
 #define NO_ENTITY '0'
 #define EMPTY_SPACE '.'
 #define STAIRS '>'
@@ -59,5 +62,5 @@ typedef struct _game {
 } game;
 
 //maybe will organise into structs
-
+#endif
 
