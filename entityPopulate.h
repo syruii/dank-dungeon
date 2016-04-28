@@ -1,5 +1,5 @@
-#ifndef ENITTY.H
-#define ENTITY.H
+#ifndef ENITTY_H
+#define ENTITY_H
 
 #define NO_ENTITY '0'
 #define BASE_HP 8
