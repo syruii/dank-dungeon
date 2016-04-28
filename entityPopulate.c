@@ -3,14 +3,10 @@
    revised 04/05
 */
 
-#define NO_ENTITY '0'
-
-#define BASE_HP 8
-
-void generatePosition (int roomWidth, int roomHeight, int* posx, int* posy);
-void placeMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight, int monNumber);
-void generateMonster (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], int playerLevel, int monNumber);
-void placePlayer (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight);
+#include <stdio.h>
+#include <string.h>
+#include "main.h"
+#include "entityPopulate.h"
 
 int entityPopulate (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], char mapArray[MAP_SIZE][MAP_SIZE], int playerLevel, int roomWidth, int roomHeight) {
    placePlayer(entityArray, entityInfo, mapArray, roomWidth, roomHeight);
