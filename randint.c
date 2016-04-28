@@ -1,3 +1,6 @@
+#include "randint.h"
+#include <assert.h>
+
 int randint(int n) { //does this random function even work - it does
    if ((n-1) == RAND_MAX) {
       return rand();
