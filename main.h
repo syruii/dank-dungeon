@@ -31,6 +31,10 @@
 #define PLAYER_CHAR '@'
 #define PASSIVE_REGEN 0.05
 
+#define VERTICAL_WALL "|"
+#define HORIZONTAL_WALL "-"
+#define MAP_SIZE 15
+
 //definitions for entity/Info struct
 typedef struct _entity {
    char entitySymbol;
