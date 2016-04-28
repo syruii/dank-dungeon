@@ -3,10 +3,9 @@
 //ALL MONSTERS ARE EQUAL.
 //Program written on 04/05
 
-
-int abs(int a);
-int aiPath(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE], int monsterIndex); //always returns a valid direction
-int playerDistanceSquared (entity entityInfo[MAX_ENTITIES], int monsterIndex);
+#include <stdio.h>
+#include <stdlib.h>
+#include "aiTurn.h"
 
 void aiTurn(entity entityInfo[MAX_ENTITIES], char entityArray[MAP_SIZE][MAP_SIZE], char mapArray[MAP_SIZE][MAP_SIZE], int roomWidth, int roomHeight, game* gameInfo, int monNumberOnFloor) {
    int monsterIndex = 1; //skips player entity
