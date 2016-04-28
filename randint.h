@@ -1,0 +1,1 @@
+int randint(int n);
