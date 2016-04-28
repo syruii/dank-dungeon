@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "main.h"
 #include "entityPopulate.h"
 
 int entityPopulate (char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[], char mapArray[MAP_SIZE][MAP_SIZE], int playerLevel, int roomWidth, int roomHeight) {
