@@ -1,5 +1,7 @@
 //contains a function which gets a direction for non-movement commands which require a direction
 //returns the direction else returns -1
+#include <string.h>
+#include "direction.h"
 
 int getDirection(void) {
    char command[10];
