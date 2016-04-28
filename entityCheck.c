@@ -4,6 +4,9 @@
 //Written sometime in April
 //Adapted for use by the AI on 04/05
 
+#include "main.h"
+#include "entityCheck.h"
+
 int entityCheck(int x, int y, char entityArray[MAP_SIZE][MAP_SIZE], entity entityInfo[]) {
    if (entityArray[x][y] != NO_ENTITY) {
       int i=0;
