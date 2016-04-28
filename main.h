@@ -56,16 +56,4 @@ typedef struct _game {
 
 //maybe will organise into structs
 
-// function headers
-#include "randint.h"
-#include "death.h"
-#include "yesno.h"
-#include "mapGenerate.h"
-#include "entityCheck.h"
-#include "moveEntity.h"
-#include "entityPopulate.h"
-#include "direction.h"
-#include "clearLevel.h"
-#include "attack.h"
-#include "aiTurn.h"
-#include "printStatus.h"
+
