@@ -3,6 +3,10 @@
 //program written on 04/05
 //capitals were cool once
 
+#include <string.h>
+#include <stdio.h>
+#include 'yesno.h'
+
 int getYes(void) {
    char command[10];
    int yn; //yesorno more like TRUE FALSE
