@@ -1,4 +1,7 @@
 //Prints status below map to show everything relevant.
+#include "printStatus.h"
+#include <stdio.h>
+#include "main.h"
 
 void printStatus (game gameInfo, entity entityInfo[MAX_ENTITIES]) {
    printf("%s ",gameInfo.playerName);
