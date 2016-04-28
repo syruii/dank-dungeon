@@ -5,7 +5,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include 'yesno.h'
+#include "yesno.h"
 
 int getYes(void) {
    char command[10];
